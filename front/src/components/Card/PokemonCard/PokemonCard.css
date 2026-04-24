@@ -1,0 +1,78 @@
+.card {
+	width: min(320px, 100%);
+	padding: 1rem;
+	border-radius: 16px;
+	border: 1px solid #d9dde3;
+	background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 100%);
+	box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+.card-name {
+	margin: 0;
+	font-size: 1.25rem;
+	text-transform: capitalize;
+	color: #111827;
+}
+
+.card-number {
+	font-weight: 700;
+	color: #4b5563;
+}
+
+.card-image {
+	display: block;
+	width: 100%;
+	max-width: 180px;
+	margin: 0 auto 0.9rem;
+}
+
+.card-types {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.8rem;
+}
+
+.card-type-chip {
+	padding: 0.3rem 0.6rem;
+	border-radius: 999px;
+	border: 1px solid transparent;
+	font-size: 0.85rem;
+	font-weight: 600;
+	text-transform: capitalize;
+	box-shadow: 0 2px 5px rgba(15, 23, 42, 0.12);
+}
+
+.card-stats {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.35rem;
+}
+
+.card-stat-item {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.4rem 0.5rem;
+	border-radius: 8px;
+	background-color: #eef2f7;
+}
+
+.card-stat-label {
+	color: #4b5563;
+}
+
+.card-stat-value {
+	font-weight: 700;
+	color: #111827;
+}

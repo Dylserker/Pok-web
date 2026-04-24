@@ -1,0 +1,98 @@
+.table-ost {
+	width: 100%;
+	overflow-x: auto;
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 96%, var(--accent) 4%), var(--bg));
+}
+
+.table-ost__table {
+	width: 100%;
+	min-width: 640px;
+	border-collapse: collapse;
+	table-layout: fixed;
+	font-size: 0.95rem;
+}
+
+.table-ost__col-title {
+	width: 40%;
+}
+
+.table-ost__col-game {
+	width: 28%;
+}
+
+.table-ost__col-audio {
+	width: 32%;
+}
+
+.table-ost__table thead {
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--accent) 22%, var(--bg)),
+		color-mix(in srgb, var(--accent) 10%, var(--bg))
+	);
+}
+
+.table-ost__table th,
+.table-ost__table td {
+	padding: 0.9rem 1rem;
+	text-align: left;
+	border-bottom: 1px solid var(--border);
+	vertical-align: middle;
+	color: var(--text-h);
+}
+
+.table-ost__table th {
+	font-weight: 700;
+	color: var(--text-h);
+	font-size: 0.92rem;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.table-ost__table tbody tr:nth-child(even) {
+	background-color: color-mix(in srgb, var(--bg) 94%, var(--border));
+}
+
+.table-ost__table tbody tr:hover {
+	background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.table-ost__audio-cell {
+	white-space: nowrap;
+}
+
+.table-ost__audio-wrap {
+	width: 280px;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.table-ost__table audio {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: 36px;
+}
+
+.table-ost__empty {
+	text-align: center !important;
+	font-style: italic;
+	color: var(--text);
+	padding: 1.3rem 1rem;
+}
+
+@media (max-width: 720px) {
+	.table-ost {
+		border-radius: 10px;
+	}
+
+	.table-ost__table {
+		min-width: 560px;
+	}
+
+	.table-ost__audio-wrap {
+		width: 260px;
+	}
+}

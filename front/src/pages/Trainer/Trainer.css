@@ -1,0 +1,41 @@
+.trainer {
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.trainer__content {
+	flex: 1 0 auto;
+	width: min(1100px, 100% - 2rem);
+	margin: 3.5rem auto 4rem;
+	display: grid;
+	gap: 1.2rem;
+	align-content: start;
+	border: 1px solid var(--border);
+	border-radius: 24px;
+	padding: clamp(1.25rem, 3vw, 2.25rem);
+	background:
+		radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 16%, transparent), transparent 52%),
+		linear-gradient(160deg, color-mix(in srgb, var(--bg) 94%, #ffe8aa 6%), var(--bg));
+	box-shadow: var(--shadow);
+}
+
+.trainer__content h1 {
+	margin: 0;
+	line-height: 1.05;
+}
+
+.trainer__content p {
+	max-width: 65ch;
+	color: var(--text);
+	margin: 0;
+}
+
+@media (max-width: 900px) {
+	.trainer__content {
+		width: min(1100px, 100% - 1.3rem);
+		margin: 2.1rem auto 3rem;
+		padding: 1.3rem;
+	}
+}
