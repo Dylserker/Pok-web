@@ -1,0 +1,18 @@
+.contact-info-card {
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 20px;
+	background: var(--bg);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.contact-info-card h3 {
+	margin: 0 0 16px;
+	color: var(--text-h);
+}
+
+.contact-info-card p {
+	margin: 0;
+}

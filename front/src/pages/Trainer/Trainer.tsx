@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
-import FormSwitch from '../../components/Button/FormSwitch/FormSwitch'
+import FormSwitch from '../../components/Buttons/FormSwitch/FormSwitch'
 import GameSelect from '../../components/ComboBox/GameSelect/GameSelect'
 import AreaSelect from '../../components/ComboBox/AreaSelect/AreaSelect'
 import RegionSelect from '../../components/ComboBox/RegionSelect/RegionSelect'

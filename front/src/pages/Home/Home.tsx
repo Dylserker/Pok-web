@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Searchbar from '../../components/Searchbar/Searchbar'
 import Card from '../../components/Card/PokemonCard/PokemonCard'
-import FormSwitch from '../../components/Button/FormSwitch/FormSwitch'
+import FormSwitch from '../../components/Buttons/FormSwitch/FormSwitch'
 import {
   FORM_OPTIONS,
   getAvailableFormsFromSpecies,
