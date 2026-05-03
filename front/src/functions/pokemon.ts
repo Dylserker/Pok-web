@@ -186,3 +186,235 @@ export async function getLocalizedTypes(
 
 	return Promise.all(sortedTypeNames.map((typeName) => getLocalizedTypeName(typeName, signal)))
 }
+
+export type ItemOption = {
+	value: string
+	label: string
+	id: number
+}
+
+export type AbilityOption = {
+	value: string
+	label: string
+	id: number
+}
+
+export type MoveOption = {
+	value: string
+	label: string
+	learnAt: number
+	id: number
+}
+
+export async function getPokemonItems(signal: AbortSignal): Promise<ItemOption[]> {
+	try {
+		const response = await fetch(
+			'https://pokeapi.co/api/v2/item?limit=1000&offset=0',
+			{ signal }
+		)
+
+		if (!response.ok) {
+			return []
+		}
+
+		const data = (await response.json()) as {
+			results: Array<{ name: string; url: string }>
+		}
+
+		const items: ItemOption[] = []
+
+		for (let i = 0; i < Math.min(50, data.results.length); i++) {
+			const item = data.results[i]
+			const itemId = item.url.split('/').filter(Boolean).pop()
+
+			try {
+				const itemResponse = await fetch(
+					`https://pokeapi.co/api/v2/item/${itemId}/`,
+					{ signal }
+				)
+
+				if (itemResponse.ok) {
+					const itemData = (await itemResponse.json()) as {
+						id: number
+						names: Array<{ name: string; language: { name: string } }>
+					}
+					const frenchName = itemData.names.find((n) => n.language.name === 'fr')?.name
+					const label = frenchName || item.name.charAt(0).toUpperCase() + item.name.slice(1).replace(/-/g, ' ')
+
+					items.push({
+						value: item.name,
+						label,
+						id: itemData.id
+					})
+				} else {
+					items.push({
+						value: item.name,
+						label: item.name.charAt(0).toUpperCase() + item.name.slice(1).replace(/-/g, ' '),
+						id: i
+					})
+				}
+			} catch {
+				items.push({
+					value: item.name,
+					label: item.name.charAt(0).toUpperCase() + item.name.slice(1).replace(/-/g, ' '),
+					id: i
+				})
+			}
+		}
+
+		return items
+	} catch (error) {
+		if ((error as Error).name === 'AbortError') {
+			throw error
+		}
+
+		return []
+	}
+}
+
+export async function getPokemonAbilities(pokemonId: number, signal: AbortSignal): Promise<AbilityOption[]> {
+	try {
+		const response = await fetch(
+			`https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
+			{ signal }
+		)
+
+		if (!response.ok) {
+			return []
+		}
+
+		const data = (await response.json()) as {
+			abilities: Array<{
+				ability: { name: string; url: string }
+				is_hidden: boolean
+			}>
+		}
+
+		const abilities: AbilityOption[] = []
+
+		for (let i = 0; i < data.abilities.length; i++) {
+			const abilitySlot = data.abilities[i]
+			const abilityId = abilitySlot.ability.url.split('/').filter(Boolean).pop()
+
+			try {
+				const abilityResponse = await fetch(
+					`https://pokeapi.co/api/v2/ability/${abilityId}/`,
+					{ signal }
+				)
+
+				if (abilityResponse.ok) {
+					const abilityData = (await abilityResponse.json()) as {
+						id: number
+						names: Array<{ name: string; language: { name: string } }>
+					}
+					const frenchName = abilityData.names.find((n) => n.language.name === 'fr')?.name
+					const label = frenchName || abilitySlot.ability.name.charAt(0).toUpperCase() + abilitySlot.ability.name.slice(1).replace(/-/g, ' ')
+
+					abilities.push({
+						value: abilitySlot.ability.name,
+						label,
+						id: abilityData.id
+					})
+				} else {
+					abilities.push({
+						value: abilitySlot.ability.name,
+						label: abilitySlot.ability.name.charAt(0).toUpperCase() + abilitySlot.ability.name.slice(1).replace(/-/g, ' '),
+						id: i
+					})
+				}
+			} catch {
+				abilities.push({
+					value: abilitySlot.ability.name,
+					label: abilitySlot.ability.name.charAt(0).toUpperCase() + abilitySlot.ability.name.slice(1).replace(/-/g, ' '),
+					id: i
+				})
+			}
+		}
+
+		return abilities
+	} catch (error) {
+		if ((error as Error).name === 'AbortError') {
+			throw error
+		}
+
+		return []
+	}
+}
+
+export async function getPokemonMoves(pokemonId: number, signal: AbortSignal): Promise<MoveOption[]> {
+	try {
+		const response = await fetch(
+			`https://pokeapi.co/api/v2/pokemon/${pokemonId}`,
+			{ signal }
+		)
+
+		if (!response.ok) {
+			return []
+		}
+
+		const data = (await response.json()) as {
+			moves: Array<{
+				move: { name: string; url: string }
+				version_group_details: Array<{
+					level_learned_at: number
+					move_learn_method: { name: string }
+				}>
+			}>
+		}
+
+		const moves: MoveOption[] = []
+
+		for (let i = 0; i < data.moves.length; i++) {
+			const moveData = data.moves[i]
+			const levelLearned = moveData.version_group_details.find(
+				(detail) => detail.move_learn_method.name === 'level-up'
+			)?.level_learned_at ?? 0
+			const moveId = moveData.move.url.split('/').filter(Boolean).pop()
+
+			try {
+				const moveResponse = await fetch(
+					`https://pokeapi.co/api/v2/move/${moveId}/`,
+					{ signal }
+				)
+
+				if (moveResponse.ok) {
+					const moveFullData = (await moveResponse.json()) as {
+						id: number
+						names: Array<{ name: string; language: { name: string } }>
+					}
+					const frenchName = moveFullData.names.find((n) => n.language.name === 'fr')?.name
+					const label = frenchName || moveData.move.name.charAt(0).toUpperCase() + moveData.move.name.slice(1).replace(/-/g, ' ')
+
+					moves.push({
+						value: moveData.move.name,
+						label,
+						learnAt: levelLearned,
+						id: moveFullData.id
+					})
+				} else {
+					moves.push({
+						value: moveData.move.name,
+						label: moveData.move.name.charAt(0).toUpperCase() + moveData.move.name.slice(1).replace(/-/g, ' '),
+						learnAt: levelLearned,
+						id: i
+					})
+				}
+			} catch {
+				moves.push({
+					value: moveData.move.name,
+					label: moveData.move.name.charAt(0).toUpperCase() + moveData.move.name.slice(1).replace(/-/g, ' '),
+					learnAt: levelLearned,
+					id: i
+				})
+			}
+		}
+
+		return moves.sort((a, b) => a.learnAt - b.learnAt).slice(0, 100)
+	} catch (error) {
+		if ((error as Error).name === 'AbortError') {
+			throw error
+		}
+
+		return []
+	}
+}

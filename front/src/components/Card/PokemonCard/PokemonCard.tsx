@@ -1,12 +1,12 @@
 import './PokemonCard.css'
-import { getPokemonTypeChipStyle } from '../../../constants/pokemonTypes'
+import { getPokemonCardBorderStyle, getPokemonTypeChipStyle } from '../../../constants/pokemonTypes'
 import type { CardProps } from '../../../types/pokemon'
 
 function PokemonCard({ name, number, image, types, stats }: CardProps) {
   const formattedNumber = String(number).padStart(3, '0')
 
   return (
-    <div className="card">
+    <div className="card" style={getPokemonCardBorderStyle(types)}>
       <div className="card-header">
         <h2 className="card-name">{name}</h2>
         <span className="card-number">#{formattedNumber}</span>

@@ -6,14 +6,14 @@ import './Contact.css'
 
 function Contact() {
   return (
-    <div className="page-shell">
+    <div className="contact">
       <Header />
-      <main className="page-content contact-page">
-        <section className="contact-grid" aria-label="Section contact">
+      <div className="contact-content" aria-label="Section contact">
+        <div className="contact-grid">
           <ContactForm />
           <ContactCard />
-        </section>
-      </main>
+        </div>
+      </div>
       <Footer />
     </div>
   )

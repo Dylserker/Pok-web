@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Searchbar from '../../components/Searchbar/Searchbar'
 import Card from '../../components/Card/PokemonCard/PokemonCard'
+import StrategicCard from '../../components/Card/StrategicCard/StrategicCard'
 import FormSwitch from '../../components/Buttons/FormSwitch/FormSwitch'
 import {
   FORM_OPTIONS,
@@ -199,7 +200,12 @@ function Home() {
               <p className="search-status search-status-error">{errorMessage}</p>
             ) : null}
 
-            {!isLoading && !errorMessage && pokemon ? <Card {...pokemon} /> : null}
+            {!isLoading && !errorMessage && pokemon ? (
+              <div className="home-result-cards">
+                <Card {...pokemon} />
+                <StrategicCard pokemonId={pokemon.number} title="Strategic Build" />
+              </div>
+            ) : null}
           </section>
         </section>
       </main>

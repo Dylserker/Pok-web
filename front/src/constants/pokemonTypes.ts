@@ -75,3 +75,22 @@ export function getPokemonTypeChipStyle(typeName: string): CSSProperties {
     borderColor: isLightColor(backgroundColor) ? 'rgba(17, 24, 39, 0.12)' : 'rgba(249, 250, 251, 0.28)'
   }
 }
+
+export function getPokemonTypeColor(typeName: string): string {
+  const normalizedTypeName = normalizeTypeName(typeName)
+  return TYPE_COLORS[normalizedTypeName] ?? '#9CA3AF'
+}
+
+export function getPokemonCardBorderStyle(types: string[]): CSSProperties {
+  const primaryColor = getPokemonTypeColor(types[0] ?? 'unknown')
+  const secondaryColor = types[1] ? getPokemonTypeColor(types[1]) : primaryColor
+
+  const borderGradient =
+    primaryColor === secondaryColor
+      ? `linear-gradient(${primaryColor}, ${primaryColor})`
+      : `conic-gradient(from 0deg, ${primaryColor} 0deg 180deg, ${secondaryColor} 180deg 360deg)`
+
+  return {
+    '--card-border-gradient': borderGradient
+  } as CSSProperties
+}

@@ -17,7 +17,7 @@
 	padding: clamp(1.25rem, 3vw, 2.25rem);
 	background:
 		radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 16%, transparent), transparent 52%),
-		linear-gradient(160deg, color-mix(in srgb, var(--bg) 94%, #ffe8aa 6%), var(--bg));
+		color-mix(in srgb, var(--bg) 60%, transparent);
 	box-shadow: var(--shadow);
 }
 
